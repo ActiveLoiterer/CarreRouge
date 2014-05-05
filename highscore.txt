@@ -1,0 +1,19 @@
+Marius 8
+laslo 3
+victor 11
+laurent 3
+mathieu 3.4
+came 17
+leon 33
+popo 12
+leonard 14
+merlin 17
+lascar 3.3
+jean val jean = 5
+came 17
+leon 33
+popo 12
+leonard 14
+merlin 17
+lascar 3.3
+jean val jean = 5
