@@ -2,23 +2,58 @@ from tkinter import *
 from tkinter import messagebox
 import sys
 
-class Vue():
-	def __init__(self):
+class Vue:
+	def __init__(self,controlleur):
 		self.root = Tk()
 		self.root.title('CarreRouge')
-		self.canvasPrincipal = Canvas(self.root,width=700,height=700,bg="black")
+		self.controlleur = controlleur
+		self.canvasWidth = 700
+		self.canvasHeight = 700
+		self.canvasPrincipal = Canvas(self.root,width=self.canvasWidth,height=self.canvasHeight,bg="black")
 		self.drawMainMenu()
 		self.listeNom = []
-		self.root.mainloop()
+		self.pret = -1
+		self.cliqueSurPion = False
+		self.nomJoueur = ""
+		self.textEntry = Entry(self.canvasPrincipal)
+		self.canvasPrincipal.bind("<Button-1>",self.click)
+		self.canvasPrincipal.bind("<ButtonRelease>",self.relacheClick)
+		self.canvasPrincipal.bind("<Motion>",self.mouseMotion)
 
+	def click(self,event):
+		lestags=self.canvasPrincipal.gettags("current")
+		if "pion" in lestags:
+			self.cliqueSurPion = True
+
+	def mouseMotion(self,event):
+		if self.cliqueSurPion:
+			self.controlleur.jeu.joueur.changePos(event.x,event.y)
+
+	def relacheClick(self,event):
+		self.cliqueSurPion = False
+			
 	def actionBoutonPlay(self):
-		self.drawSurfaceJeu()
+		self.getNomJoueur()
 
 	def actionBoutonQuitter(self):
 		sys.exit(0)
 
 	def actionBoutonFermerHighscore(self):
 		self.canvasPrincipal.delete('highscore')
+
+	def getNomJoueur(self):
+		self.textEntry = Entry(self.canvasPrincipal)
+		b = Button(self.canvasPrincipal,text='choisir un nom',command=self.boutonGetJoueur)
+		self.canvasPrincipal.create_window(350,500,window=self.textEntry,tags='choixNom')
+		self.canvasPrincipal.create_window(350,550,window=b,tags='choixNom')
+		self.textEntry.focus_set()
+
+	def boutonGetJoueur(self):
+		self.nomJoueur = self.textEntry.get()
+		self.pret = 1
+		self.controlleur.gameLoop()
+		self.drawSurfaceJeu()
+
 
 	def drawListeNomHighscore(self):
 		boutonFermerHS = Button(self.root,text="fermer highscore!",width=20,height=2, command= lambda: self.actionBoutonFermerHighscore())
@@ -34,7 +69,7 @@ class Vue():
 
 	def actionBoutonHighscore(self):
 
-		# a mettre dans le modele juste tests ici
+		# a mettre dans le modele juste voir si fonctionne
 		highscoreFile = open( "highscore.txt", "r" )
 		for line in highscoreFile:
 			self.listeNom.append(line.splitlines())
@@ -55,19 +90,16 @@ class Vue():
 	def drawSurfaceJeu(self):
 		self.canvasPrincipal.delete('all')
 		self.canvasPrincipal.create_rectangle(30,30,670,670,fill="white",tags='jeu')
-		self.drawCarresEnnemi()
-		self.drawDialogRejouer()
+		self.drawPions()
 
-	def drawJoueur(self):
-		pass
+	def drawPions(self):
+		self.canvasPrincipal.delete('pion')
+		pion = self.controlleur.jeu.joueur
+		self.canvasPrincipal.create_rectangle(pion.posX1,pion.posY1,pion.posX2,pion.posY2,fill="red", tags=("pion"))
 
-	def drawCarresEnnemi(self):
-		#tests need real objects
-		self.canvasPrincipal.create_rectangle(50,50,150,70,fill="blue",tags='jeu')
-		self.canvasPrincipal.create_rectangle(120,120,150,75,fill="blue",tags='jeu')
-		self.canvasPrincipal.create_rectangle(500,500,650,600,fill="blue",tags='jeu')
-		#self.canvasPrincipal.create_rectangle(60,60,10,10,fill="blue",tags='jeu')
-		#self.canvasPrincipal.create_rectangle(15,60,10,10,fill="blue",tags='jeu')
+		for i in self.controlleur.jeu.listeCarreBleu:
+			self.canvasPrincipal.create_rectangle(i.posX1,i.posY1,i.posX2,i.posY2,fill="blue", tags=("carreBleu"))
+
 
 	def drawDialogRejouer(self):
 		if(messagebox.askyesno("nouvelle partie","voulez-vous rejouer une partie?",parent=self.canvasPrincipal)):
@@ -75,6 +107,3 @@ class Vue():
 		else:
 			self.drawMainMenu()
 
-
-if __name__ == '__main__':
-    vue = Vue()
