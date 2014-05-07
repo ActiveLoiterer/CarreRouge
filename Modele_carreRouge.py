@@ -7,7 +7,7 @@ class Jeu:
 		self.nomJoueur = nomJoueur
 		self.joueur = Pion(self,225,225,265,265)
 		self.listeCarreBleu = []
-		self.carrebleu1 = CarreBleu(self,100,100,160,160,315)
+		self.carrebleu1 = CarreBleu(self,100,100,160,160,315) #315,225,45,135
 		self.carrebleu2 = CarreBleu(self,300,85,360,135,225)
 		self.carrebleu3 = CarreBleu(self,85,350,105,410,45)
 		self.carrebleu4 = CarreBleu(self,355,340,455,360,135)
@@ -23,8 +23,9 @@ class Jeu:
 
 	def updateCarreBleu(self):
 		for i in self.listeCarreBleu:
-			i.collisionAvecMur(0,0,700,700)
 			i.changePos()
+			i.collisionAvecMur(0,700,0,700)
+			print(i.angleCourant)
 
 
 class Pion:
@@ -78,7 +79,7 @@ class CarreBleu:
 		self.posY2=(math.sin(self.angleCourant)*self.vitesse)+self.posY2
 	
 	def collisionAvecMur(self, gauche, droite, haut, bas ):
-		if self.posX1 <= gauche:
+		"""if self.posX1 <= gauche:
 			if self.angleCourant > 180:              	#collision avec la bordure vers la gauche
 				self.angleCourant = 315
 			else:
@@ -93,14 +94,31 @@ class CarreBleu:
 		elif self.posY1 <= haut:                        	#collision avec la bordure vers le haut
 			if self.angleCourant > 90:
 				self.angleCourant = 225
+				print(self.angleCourant, '1')
 			else:
 				self.angleCourant = 315
-		
+				print(self.angleCourant,'2')
+
 		elif self.posY2 >= bas: 
-			if self.angleCourant > 90:					#collision avec la bordure vers le bas
+			if self.angleCourant < 270:					#collision avec la bordure vers le bas
 				self.angleCourant = 135
+				print(self.angleCourant,'3')
 			else:                         
 				self.angleCourant = 45
+				print(self.angleCourant,'4')"""
+
+		if self.posX1 <= gauche:
+			self.angleCourant = random.randint(0,360)
+
+		elif self.posX2 >= droite: 
+			self.angleCourant = random.randint(0,360)
+		
+		elif self.posY1 <= haut:                        	#collision avec la bordure vers le haut
+			
+			self.angleCourant = random.randint(0,360)
+
+		elif self.posY2 >= bas: 
+			self.angleCourant = random.randint(0,360)
 
 	#changerTrajectoire(self)
 
