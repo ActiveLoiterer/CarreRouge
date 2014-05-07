@@ -98,6 +98,7 @@ class Vue:
 
 	def drawPions(self):
 		self.canvasPrincipal.delete('pion')
+		self.canvasPrincipal.delete('carreBleu')
 		pion = self.controlleur.jeu.joueur
 		self.canvasPrincipal.create_rectangle(pion.posX1,pion.posY1,pion.posX2,pion.posY2,fill="red", tags=("pion"))
 

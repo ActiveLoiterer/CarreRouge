@@ -12,7 +12,8 @@ class Controlleur:
 	def gameLoop(self):
 		if(self.vue.pret == 1):
 			self.creerJeu()
-			#manque le update des carreBleu
+			#manque le update des carreBleu	
+			self.jeu.updateCarreBleu()
 			self.vue.drawPions()
 			self.vue.root.after(50,self.gameLoop)
 
