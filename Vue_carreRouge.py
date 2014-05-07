@@ -15,6 +15,7 @@ class Vue:
 		self.pret = -1
 		self.cliqueSurPion = False
 		self.nomJoueur = ""
+		self.highscoreOuvert = False
 		self.textEntry = Entry(self.canvasPrincipal)
 		self.canvasPrincipal.bind("<Button-1>",self.click)
 		self.canvasPrincipal.bind("<ButtonRelease>",self.relacheClick)
@@ -40,6 +41,7 @@ class Vue:
 
 	def actionBoutonFermerHighscore(self):
 		self.canvasPrincipal.delete('highscore')
+		self.highscoreOuvert = False
 
 	def getNomJoueur(self):
 		self.textEntry = Entry(self.canvasPrincipal)
@@ -70,11 +72,13 @@ class Vue:
 	def actionBoutonHighscore(self):
 
 		# a mettre dans le modele juste voir si fonctionne
-		highscoreFile = open( "highscore.txt", "r" )
-		for line in highscoreFile:
-			self.listeNom.append(line.splitlines())
-		highscoreFile.close()
-		self.drawListeNomHighscore()
+		if(not self.highscoreOuvert):
+			highscoreFile = open( "highscore.txt", "r" )
+			for line in highscoreFile:
+				self.listeNom.append(line.splitlines())
+			highscoreFile.close()
+			self.drawListeNomHighscore()
+			self.highscoreOuvert = True
 
 
 	def drawMainMenu(self):
