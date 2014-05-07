@@ -27,12 +27,34 @@ class Pion:
 		self.posY1=y1
 		self.posX2=x2
 		self.posY2=y2
+		self.dead = False
 
 	def changePos(self,x,y):
 		self.posX1=x
 		self.posY1=y
 		self.posX2=x+40
 		self.posY2=y+40
+
+	def isDead(self):
+        if self.dead == False:
+            return False        
+        else:
+            return True
+
+	def isOutOfBounds(self, gauche, droite, haut, bas ):
+        if self.x1 <= gauche:                                       #collision avec la bordure vers la gauche
+            return True
+        
+        if self.x2 >= droite:                                       #collision avec la bordure vers la droite
+            return True
+        
+        if self.y1 <= haut:                                       #collision avec la bordure vers le haut
+            return True
+        
+        if self.y2 >= bas:                                       #collision avec la bordure vers le bas
+            return True
+
+        return False
 
 class CarreBleu:
 	def __init__(self,parent,x1,y1,x2,y2):
