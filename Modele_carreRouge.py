@@ -17,6 +17,8 @@ class Jeu:
 		self.listeNom = [] #pour les highscore
 		self.temps = None # pour le temps de la partie
 
+	def startTimer(self):
+		pass
 
 
 class Pion:
@@ -25,34 +27,12 @@ class Pion:
 		self.posY1=y1
 		self.posX2=x2
 		self.posY2=y2
-		self.dead = False
 
 	def changePos(self,x,y):
 		self.posX1=x
 		self.posY1=y
 		self.posX2=x+40
 		self.posY2=y+40
-
-	def isDead(self):
-        if self.dead == False:
-        	return False       
-        else:
-            return True
-
-    def isOutOfBounds(self, x1Wall, x2Wall, y1Wall, y2Wall ):		#rename
-        if self.x1 <= x1Wall:                                       #collision vers la gauche
-            return True
-        
-        if self.x2 >= x2Wall:                                       #collision vers la droite
-            return True
-        
-        if self.y1 <= y1Wall:                                       #collision vers le haut
-            return True
-        
-        if self.y2 >= y2Wall:                                       #collision vers le bas
-            return True
-
-        return False
 
 class CarreBleu:
 	def __init__(self,parent,x1,y1,x2,y2):

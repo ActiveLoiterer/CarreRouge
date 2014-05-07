@@ -19,6 +19,7 @@ class Controlleur:
 	def creerJeu(self):
 		if not self.jeu:
 			self.jeu = self.jeu = Modele_carreRouge.Jeu(self.vue.nomJoueur)
+			# STARTTIME
 
 
 if __name__ == '__main__':

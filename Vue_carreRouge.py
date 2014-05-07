@@ -71,7 +71,7 @@ class Vue:
 
 	def actionBoutonHighscore(self):
 
-		# a mettre dans le modele juste voir si fonctionne
+		# a mettre dans le MODELE juste voir si fonctionne
 		if(not self.highscoreOuvert):
 			highscoreFile = open( "highscore.txt", "r" )
 			for line in highscoreFile:
