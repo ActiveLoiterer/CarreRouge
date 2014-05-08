@@ -26,9 +26,17 @@ class Jeu:
 			i.changePos()
 			i.collisionAvecMur(0,700,0,700)
 
-	def incremVitesse(self)
+	def incremVitesse(self):
 		for i in self.listeCarreBleu:
 			i.vitesse += 1
+#Debut de collision check, pas fini
+	def checkRedSqCollision(self):
+		for i in self.listeCarreBleu:
+			if self.joueur.posX1 >= i.posX1 and self.joueur.posY1 >= i.posY1 and self.joueur.posX1 <= i.posX2 and self.joueur.posY1 <= i.posY2:
+				print("true")
+				self.joueur.dead = True
+				return True
+
 
 
 class Pion:

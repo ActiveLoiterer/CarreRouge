@@ -14,6 +14,7 @@ class Controlleur:
 			self.creerJeu()
 			#manque le update des carreBleu	
 			self.jeu.updateCarreBleu()
+			self.jeu.checkRedSqCollision()
 			self.vue.drawPions()
 			self.vue.root.after(50,self.gameLoop)
 
