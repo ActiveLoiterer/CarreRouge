@@ -26,6 +26,10 @@ class Jeu:
 			i.changePos()
 			i.collisionAvecMur(0,700,0,700)
 
+	def incremVitesse(self)
+		for i in self.listeCarreBleu:
+			i.vitesse += 1
+
 
 class Pion:
 	def __init__(self,parent,x1,y1,x2,y2):
@@ -105,17 +109,17 @@ class CarreBleu:
 
 	#RANDOM METHOD
 		"""if self.posX1 <= gauche:
-			self.angleCourant = random.uniform(0,math.pi*2)
+			self.angleCourant = random.uniform(math.pi*1.5,math.pi*2.5)	#random.uniform pour accepter les float
 
 		elif self.posX2 >= droite: 
-			self.angleCourant = random.uniform(0,math.pi*2)
+			self.angleCourant = random.uniform(math.pi/2,math.pi*1.5)
 		
 		elif self.posY1 <= haut:                        	#collision avec la bordure vers le haut
 			
-			self.angleCourant = random.uniform(0,math.pi*2)
+			self.angleCourant = random.uniform(0,math.pi)
 
 		elif self.posY2 >= bas: 
-			self.angleCourant = random.uniform(0,math.pi*2)"""
+			self.angleCourant = random.uniform(math.pi,math.pi*2)"""
 
 
 
