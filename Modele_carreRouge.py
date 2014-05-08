@@ -7,7 +7,7 @@ class Jeu:
 		self.nomJoueur = nomJoueur
 		self.joueur = Pion(self,225,225,265,265)
 		self.listeCarreBleu = []
-		self.carrebleu1 = CarreBleu(self,100,100,160,160,math.pi/4) #315,225,45,135
+		self.carrebleu1 = CarreBleu(self,100,100,160,160,math.pi/4)
 		self.carrebleu2 = CarreBleu(self,300,85,360,135,math.pi/4*3)
 		self.carrebleu3 = CarreBleu(self,85,350,105,410,math.pi/4*7)
 		self.carrebleu4 = CarreBleu(self,355,340,455,360,math.pi/4*5)
@@ -78,62 +78,32 @@ class CarreBleu:
 		self.posY2=(math.sin(self.angleCourant)*self.vitesse)+self.posY2
 	
 	def collisionAvecMur(self, gauche, droite, haut, bas ):
-		#OLD METHOD
-
-		"""if self.posX1 <= gauche:
-			if self.angleCourant > 180:              	#collision avec la bordure vers la gauche
-				self.angleCourant = 315
-			else:
-				self.angleCourant = 45
-
-		elif self.posX2 >= droite: 
-			if self.angleCourant > 180:              	#collision avec la bordure vers la droite
-				self.angleCourant = 225
-			else:
-				self.angleCourant = 135
-		
-		elif self.posY1 <= haut:                        	#collision avec la bordure vers le haut
-			if self.angleCourant > 90:
-				self.angleCourant = 225
-				print(self.angleCourant, '1')
-			else:
-				self.angleCourant = 315
-				print(self.angleCourant,'2')
-
-		elif self.posY2 >= bas: 
-			if self.angleCourant < 270:					#collision avec la bordure vers le bas
-				self.angleCourant = 135
-				print(self.angleCourant,'3')
-			else:                         
-				self.angleCourant = 45
-				print(self.angleCourant,'4')"""
-#NEW MÉTHOD
-
+	#NON-RANDOM METHOD
 		if self.posX1 <= gauche:
 			if self.angleCourant < math.pi:              	#collision avec la bordure vers la gauche
-				self.angleCourant = math.pi/4 	#315
+				self.angleCourant = math.pi/4
 			else:
-				self.angleCourant = math.pi/4 * 7	#45
+				self.angleCourant = math.pi/4 * 7
 
 		elif self.posX2 >= droite: 
 			if self.angleCourant < math.pi:              	#collision avec la bordure vers la droite
-				self.angleCourant = math.pi/4 * 3 	#225
+				self.angleCourant = math.pi/4 * 3
 			else:
-				self.angleCourant = math.pi/4 * 5	#135
+				self.angleCourant = math.pi/4 * 5
 		
 		elif self.posY1 <= haut:                        	#collision avec la bordure vers le haut
 			if self.angleCourant > math.pi/2:
-				self.angleCourant = math.pi/4 * 3 	#225
+				self.angleCourant = math.pi/4 * 3
 			else:
-				self.angleCourant = math.pi/4 * 7 	#315
+				self.angleCourant = math.pi/4 * 7
 
 		elif self.posY2 >= bas: 
 			if self.angleCourant > math.pi*1.5:					#collision avec la bordure vers le bas
-				self.angleCourant = math.pi/4 * 5 	#135
+				self.angleCourant = math.pi/4 * 5
 			else:
-				self.angleCourant = math.pi/4 * 7 	#45
+				self.angleCourant = math.pi/4 * 7
 
-#RANDOM METHOD
+	#RANDOM METHOD
 		"""if self.posX1 <= gauche:
 			self.angleCourant = random.uniform(0,math.pi*2)
 
