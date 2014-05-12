@@ -13,14 +13,23 @@ class Controlleur:
 		if(self.vue.pret == 1):
 			self.creerJeu()
 			#manque le update des carreBleu	
-			self.jeu.updateCarreBleu()
-			self.jeu.checkRedSqCollision()
-			self.vue.drawPions()
-			self.vue.root.after(50,self.gameLoop)
+			if(self.jeu.joueur.isDead()):
+				self.jeu.calculTempsTotal()
+				#mettre dans highscore
+				print(self.jeu.tempsFinal)
+				self.vue.pret = 0
+				self.vue.drawMainMenu()
+				self.jeu = None
+			else:
+				self.jeu.updateCarreBleu()
+				self.jeu.checkRedSqCollision()
+				self.vue.drawPions()
+				self.vue.root.after(50,self.gameLoop)
 
 	def creerJeu(self):
 		if not self.jeu:
 			self.jeu = self.jeu = Modele_carreRouge.Jeu(self.vue.nomJoueur)
+			self.jeu.startTimer()
 			# STARTTIME
 
 

@@ -1,6 +1,7 @@
 import time
 import random
 import math
+import threading
 
 class Jeu:
 	def __init__(self,nomJoueur):
@@ -16,10 +17,18 @@ class Jeu:
 		self.listeCarreBleu.append(self.carrebleu3)
 		self.listeCarreBleu.append(self.carrebleu4)
 		self.listeNom = [] #pour les highscore
-		self.temps = None # pour le temps de la partie
+		self.tempsDepart = None # pour le temps de la partie
+		self.tempsFinal = None #total du temps du joueur
 
 	def startTimer(self):
-		pass
+		self.tempsDepart = time.time()
+		#self.incremVitesse()
+
+	def calculTempsTotal(self):
+		tempsFin = time.time()
+		self.tempsFinal = tempsFin - self.tempsDepart
+
+
 
 	def updateCarreBleu(self):
 		for i in self.listeCarreBleu:
@@ -28,7 +37,8 @@ class Jeu:
 
 	def incremVitesse(self):
 		for i in self.listeCarreBleu:
-			i.vitesse += 1
+			i.vitesse += 2
+		threading.Timer(5,self.incremVitesse).start()
 #Debut de collision check, pas fini
 	def checkRedSqCollision(self):
 		for i in self.listeCarreBleu:

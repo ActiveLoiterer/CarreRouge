@@ -27,7 +27,7 @@ class Vue:
 			self.cliqueSurPion = True
 
 	def mouseMotion(self,event):
-		if self.cliqueSurPion:
+		if self.cliqueSurPion and self.controlleur.jeu :
 			self.controlleur.jeu.joueur.changePos(event.x,event.y)
 
 	def relacheClick(self,event):
@@ -82,7 +82,7 @@ class Vue:
 
 
 	def drawMainMenu(self):
-		self.canvasPrincipal.delete('jeu')
+		self.canvasPrincipal.delete('all')
 		self.boutonPlay = Button(self.root,text="Jouer",width=20,height=5, command= lambda: self.actionBoutonPlay())
 		self.boutonQuit = Button(self.root,text="Quitter",width=20,height=5, command= lambda: self.actionBoutonQuitter())
 		self.boutonHighscore = Button(self.root,text="Highscore",width=20,height=5, command= lambda: self.actionBoutonHighscore())
