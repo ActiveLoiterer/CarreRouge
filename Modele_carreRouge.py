@@ -17,7 +17,7 @@ class Jeu:
 		self.listeCarreBleu.append(self.carrebleu3)
 		self.listeCarreBleu.append(self.carrebleu4)
 		self.listeNom = [] #pour les highscore
-		self.tempsDepart = None # pour le temps de la partie
+		self.tempsDepart = None # pour le temps ou commence la partie
 		self.tempsFinal = None #total du temps du joueur
 
 	def startTimer(self):
@@ -28,6 +28,8 @@ class Jeu:
 		tempsFin = time.time()
 		self.tempsFinal = tempsFin - self.tempsDepart
 
+	def getTemps(self):
+		return self.tempsFinal
 
 
 	def updateCarreBleu(self):

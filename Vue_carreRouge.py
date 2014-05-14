@@ -96,15 +96,21 @@ class Vue:
 		self.canvasPrincipal.create_rectangle(30,30,670,670,fill="white",tags='jeu')
 		self.drawPions()
 
+	def drawTemps(self):
+		temps = StringVar()
+		temps.set(str("{:10.2f}".format(self.controlleur.jeu.getTemps())))
+		labelTemps = Label(self.canvasPrincipal,textvariable=temps,fg="black")
+		self.canvasPrincipal.create_window(350,15,window=labelTemps,tags='jeu')
+
 	def drawPions(self):
 		self.canvasPrincipal.delete('pion')
 		self.canvasPrincipal.delete('carreBleu')
 		pion = self.controlleur.jeu.joueur
+		self.drawTemps()
 		self.canvasPrincipal.create_rectangle(pion.posX1,pion.posY1,pion.posX2,pion.posY2,fill="red", tags=("pion"))
 
 		for i in self.controlleur.jeu.listeCarreBleu:
 			self.canvasPrincipal.create_rectangle(i.posX1,i.posY1,i.posX2,i.posY2,fill="blue", tags=("carreBleu"))
-
 
 	def drawDialogRejouer(self):
 		if(messagebox.askyesno("nouvelle partie","voulez-vous rejouer une partie?",parent=self.canvasPrincipal)):

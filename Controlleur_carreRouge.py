@@ -5,7 +5,6 @@ class Controlleur:
 	def __init__(self):
 		self.vue = Vue_carreRouge.Vue(self)
 		self.jeu = None
-		#self.jeu = Modele_carreRouge.Jeu(self.vue.nomJoueur)
 		self.gameLoop()
 		self.vue.root.mainloop()
 
@@ -21,6 +20,7 @@ class Controlleur:
 				self.vue.drawMainMenu()
 				self.jeu = None
 			else:
+				self.jeu.calculTempsTotal()
 				self.jeu.updateCarreBleu()
 				self.jeu.checkRedSqCollision()
 				self.vue.drawPions()
@@ -30,7 +30,6 @@ class Controlleur:
 		if not self.jeu:
 			self.jeu = self.jeu = Modele_carreRouge.Jeu(self.vue.nomJoueur)
 			self.jeu.startTimer()
-			# STARTTIME
 
 
 if __name__ == '__main__':
