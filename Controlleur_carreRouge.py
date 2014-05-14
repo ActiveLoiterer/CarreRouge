@@ -4,7 +4,7 @@ import Modele_carreRouge
 class Controlleur:
 	def __init__(self):
 		self.vue = Vue_carreRouge.Vue(self)
-		self.jeu = None
+		self.jeu = Modele_carreRouge.Jeu()
 		self.gameLoop()
 		self.vue.root.mainloop()
 
@@ -14,11 +14,11 @@ class Controlleur:
 			#manque le update des carreBleu	
 			if(self.jeu.joueur.isDead()):
 				self.jeu.calculTempsTotal()
-				#mettre dans highscore
+				self.jeu.ecrireHighscore()
 				print(self.jeu.tempsFinal)
 				self.vue.pret = 0
 				self.vue.drawMainMenu()
-				self.jeu = None
+				self.jeu = Modele_carreRouge.Jeu()
 			else:
 				self.jeu.calculTempsTotal()
 				self.jeu.updateCarreBleu()
@@ -27,8 +27,8 @@ class Controlleur:
 				self.vue.root.after(50,self.gameLoop)
 
 	def creerJeu(self):
-		if not self.jeu:
-			self.jeu = self.jeu = Modele_carreRouge.Jeu(self.vue.nomJoueur)
+		if not self.jeu or self.jeu.nomJoueur is "default" :
+			self.jeu = Modele_carreRouge.Jeu(self.vue.nomJoueur)
 			self.jeu.startTimer()
 
 

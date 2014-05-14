@@ -4,7 +4,7 @@ import math
 import threading
 
 class Jeu:
-	def __init__(self,nomJoueur):
+	def __init__(self,nomJoueur="default"):
 		self.nomJoueur = nomJoueur
 		self.joueur = Pion(self,225,225,265,265)
 		self.listeCarreBleu = []
@@ -16,7 +16,7 @@ class Jeu:
 		self.listeCarreBleu.append(self.carrebleu2)
 		self.listeCarreBleu.append(self.carrebleu3)
 		self.listeCarreBleu.append(self.carrebleu4)
-		self.listeNom = [] #pour les highscore
+		self.listeNom = self.lireHighscore() #pour les highscore
 		self.tempsDepart = None # pour le temps ou commence la partie
 		self.tempsFinal = None #total du temps du joueur
 
@@ -31,6 +31,22 @@ class Jeu:
 	def getTemps(self):
 		return self.tempsFinal
 
+	def getListeNom(self):
+		return self.listeNom
+
+	def lireHighscore(self):
+		highscoreFile = open( "highscore.txt", "r" )
+		listeNoms = []
+		for line in highscoreFile:
+			listeNoms.append(line.splitlines())
+		highscoreFile.close()
+		return listeNoms
+
+	def ecrireHighscore(self):
+		highscoreFile = open("Highscore.txt", "a")
+		toWrite =  str("{:10.2f}".format(self.tempsFinal)+"\n")
+		highscoreFile.write(self.nomJoueur + " " + toWrite )
+		highscoreFile.close()
 
 	def updateCarreBleu(self):
 		for i in self.listeCarreBleu:

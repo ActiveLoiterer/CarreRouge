@@ -73,10 +73,8 @@ class Vue:
 
 		# a mettre dans le MODELE juste voir si fonctionne
 		if(not self.highscoreOuvert):
-			highscoreFile = open( "highscore.txt", "r" )
-			for line in highscoreFile:
-				self.listeNom.append(line.splitlines())
-			highscoreFile.close()
+			self.controlleur.jeu.lireHighscore()
+			self.listeNom = self.controlleur.jeu.getListeNom()
 			self.drawListeNomHighscore()
 			self.highscoreOuvert = True
 
@@ -114,7 +112,7 @@ class Vue:
 
 	def drawDialogRejouer(self):
 		if(messagebox.askyesno("nouvelle partie","voulez-vous rejouer une partie?",parent=self.canvasPrincipal)):
-			self.drawSurfaceJeu()
+			return True
 		else:
-			self.drawMainMenu()
+			return False
 
