@@ -3,12 +3,13 @@ from tkinter import messagebox
 import os
 
 class Vue:
-	def __init__(self,controlleur):
+	def __init__(self,parent,controlleur):
+		self.parent = parent
 		self.root = Tk()
 		self.root.title('CarreRouge')
 		self.controlleur = controlleur
-		self.canvasWidth = 500
-		self.canvasHeight = 500
+		self.canvasWidth = self.parent.jeu.limiteX
+		self.canvasHeight = self.parent.jeu.limiteY
 		self.canvasPrincipal = Canvas(self.root,width=self.canvasWidth,height=self.canvasHeight,bg="black")
 		self.drawMainMenu()
 		self.listeNom = []

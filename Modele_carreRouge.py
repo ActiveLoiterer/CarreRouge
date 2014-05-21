@@ -4,11 +4,13 @@ import math
 import threading
 
 class Jeu:
-	def __init__(self,parent,nomJoueur="default"):
-		self.parent = parent
+	def __init__(self,nomJoueur="default"):
 		self.nomJoueur = nomJoueur
-		self.limiteX = self.parent.vue.canvasWidth
-		self.limiteY = self.parent.vue.canvasHeight
+		#self.limiteX = self.parent.vue.canvasWidth		#Mettre ceci dans la vue.
+		#self.limiteY = self.parent.vue.canvasHeight
+
+		self.limiteX = 500
+		self.limiteY = 500
 
 		self.joueur = Pion(self,self.limiteX/2 - 20,self.limiteY/2 - 20,self.limiteX/2 + 20,self.limiteY/2 + 20)
 		self.listeCarreBleu = []
@@ -24,19 +26,19 @@ class Jeu:
 		self.carrebleu3 = CarreBleu(self,85,350,115,410,math.pi/4*7)
 		self.carrebleu4 = CarreBleu(self,355,340,455,360,math.pi/4*5)
 
-		#Random method
-
 		self.listeCarreBleu.append(self.carrebleu1)
 		self.listeCarreBleu.append(self.carrebleu2)
 		self.listeCarreBleu.append(self.carrebleu3)
 		self.listeCarreBleu.append(self.carrebleu4)
 
+		#Random method
 		for i in self.listeCarreBleu:
 			self.initCarreBleuRandom(i)
 
 		self.listeNom = self.lireHighscore() #pour les highscore
 		self.tempsDepart = None # pour le temps ou commence la partie
 		self.tempsFinal = None #total du temps du joueur
+		self.var = 0
 
 	def startTimer(self):
 		self.tempsDepart = time.time()
@@ -70,10 +72,13 @@ class Jeu:
 		for i in self.listeCarreBleu:
 			i.changePos()
 			i.collisionAvecMur(0,self.limiteX,0,self.limiteY)
+		self.incremVitesse()
 
 	def incremVitesse(self):
 		for i in self.listeCarreBleu:
 			i.vitesse += 0.1
+			self.var += 1
+			print(self.var)
 		threading.Timer(5,self.incremVitesse).start()
 
 	def checkRedSqCollision(self):
@@ -92,15 +97,17 @@ class Jeu:
 				if self.joueur.posY2 <= i.posY2 and self.joueur.posY2 > i.posY1:
 					self.joueur.dead = True
 
+		self.joueur.isOutOfBounds(30,self.limiteX - 30,30,self.limiteY - 30)
+
 	def initCarreBleuRandom(self, carre):
-		carre.posX1 = random.randrange(30,self.limiteX - 30)
-		carre.posY1 = random.randrange(30,self.limiteY - 30)
+		carre.posX1 = random.randrange(30,self.limiteX - 130)
+		carre.posY1 = random.randrange(30,self.limiteY - 130)
 		carre.posX2 = random.randrange(carre.posX1+10,carre.posX1+100)
 		carre.posY2 = random.randrange(carre.posY1+10,carre.posY1+100)
 
-		while((carre.posX1 >= self.limiteX/2 - 50 and carre.posX2 <= self.limiteX/2 + 50) or (carre.posY1 >= self.limiteY/2 - 50 and carre.posY2 <= self.limiteX/2 + 50)):
-			carre.posX1 = random.randrange(30,self.limiteX - 30)
-			carre.posY1 = random.randrange(30,self.limiteY - 30)
+		while((carre.posX1 >= self.limiteX/2 - 150 and carre.posX2 <= self.limiteX/2 + 150) or (carre.posY1 >= self.limiteY/2 - 150 and carre.posY2 <= self.limiteX/2 + 150)):
+			carre.posX1 = random.randrange(30,self.limiteX - 130)
+			carre.posY1 = random.randrange(30,self.limiteY - 130)
 			carre.posX2 = random.randrange(carre.posX1+10,carre.posX1+100)
 			carre.posY2 = random.randrange(carre.posY1+10,carre.posY1+100)
 
@@ -191,11 +198,3 @@ class CarreBleu:
 
 		elif self.posY2 >= bas: 
 			self.angleCourant = random.uniform(math.pi,math.pi*2)
-
-
-
-
-
-
-	
-
