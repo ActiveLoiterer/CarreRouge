@@ -10,8 +10,7 @@ class Controlleur:
 
 	def gameLoop(self):
 		if(self.vue.pret == 1):
-			self.creerJeu()
-			#manque le update des carreBleu	
+			self.creerJeu()	
 			if(self.jeu.joueur.isDead()):
 				self.jeu.calculTempsTotal()
 				self.jeu.ecrireHighscore()
@@ -26,6 +25,7 @@ class Controlleur:
 				self.jeu.joueur.isOutOfBounds(30,670,30,670)
 				self.jeu.incremVitesse()
 				self.vue.drawPions()
+				self.vue.drawTemps()
 				self.vue.root.after(50,self.gameLoop)
 
 	def creerJeu(self):

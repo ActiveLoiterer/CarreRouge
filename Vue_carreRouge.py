@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-import sys
+import os
 
 class Vue:
 	def __init__(self,controlleur):
@@ -25,6 +25,8 @@ class Vue:
 		lestags=self.canvasPrincipal.gettags("current")
 		if "pion" in lestags:
 			self.cliqueSurPion = True
+			self.pret = 1
+			self.controlleur.gameLoop()
 
 	def mouseMotion(self,event):
 		if self.cliqueSurPion and self.controlleur.jeu :
@@ -38,7 +40,7 @@ class Vue:
 
 	def actionBoutonQuitter(self):
 		self.canvasPrincipal.delete("all")
-		os._exit()
+		os._exit(0)
 
 	def actionBoutonFermerHighscore(self):
 		self.canvasPrincipal.delete('highscore')
@@ -54,8 +56,8 @@ class Vue:
 
 	def boutonGetJoueur(self):
 		self.nomJoueur = self.textEntry.get()
-		self.pret = 1
-		self.controlleur.gameLoop()
+		#self.pret = 1
+		#self.controlleur.gameLoop()
 		self.drawSurfaceJeu()
 
 
@@ -107,7 +109,7 @@ class Vue:
 		self.canvasPrincipal.delete('pion')
 		self.canvasPrincipal.delete('carreBleu')
 		pion = self.controlleur.jeu.joueur
-		self.drawTemps()
+		#self.drawTemps()
 		self.canvasPrincipal.create_rectangle(pion.posX1,pion.posY1,pion.posX2,pion.posY2,fill="red", tags=("pion"))
 
 		for i in self.controlleur.jeu.listeCarreBleu:
