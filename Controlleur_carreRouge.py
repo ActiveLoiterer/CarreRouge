@@ -23,6 +23,7 @@ class Controlleur:
 				self.jeu.calculTempsTotal()
 				self.jeu.updateCarreBleu()
 				self.jeu.checkRedSqCollision()
+				self.jeu.joueur.isOutOfBounds(30,670,30,670)
 				self.jeu.incremVitesse()
 				self.vue.drawPions()
 				self.vue.root.after(50,self.gameLoop)

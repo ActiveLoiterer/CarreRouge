@@ -55,32 +55,24 @@ class Jeu:
 
 	def incremVitesse(self):
 		for i in self.listeCarreBleu:
-			i.vitesse += 2
+			i.vitesse += 0.5
 		threading.Timer(5,self.incremVitesse).start()
 
 	def checkRedSqCollision(self):
 		for i in self.listeCarreBleu:
 			if self.joueur.posX2 >= i.posX1 and self.joueur.posX2 < i.posX2:
 				if self.joueur.posY1 >= i.posY1 and self.joueur.posY1 <= i.posY2:
-					print("true")
 					self.joueur.dead = True
-					return True
 				
 				if self.joueur.posY2 <= i.posY2 and self.joueur.posY2 > i.posY1:
-					print("true")
 					self.joueur.dead = True
-					return True
 
 			if self.joueur.posX1 >= i.posX1 and self.joueur.posX1 <= i.posX2:
 				if self.joueur.posY1 >= i.posY1 and self.joueur.posY1 <= i.posY2:
-					print("true")
 					self.joueur.dead = True
-					return True
 				
 				if self.joueur.posY2 <= i.posY2 and self.joueur.posY2 > i.posY1:
-					print("true")
 					self.joueur.dead = True
-					return True
 
 
 
@@ -105,19 +97,17 @@ class Pion:
 			return True
 
 	def isOutOfBounds(self, gauche, droite, haut, bas ):
-		if self.x1 <= gauche:                                       #collision avec la bordure vers la gauche
-			return True
+		if self.posX1 <= gauche:                                       #collision avec la bordure vers la gauche
+			self.dead = True
 		
-		elif self.x2 >= droite:                                       #collision avec la bordure vers la droite
-			return True
+		elif self.posX2 >= droite:                                       #collision avec la bordure vers la droite
+			self.dead = True
         
-		elif self.y1 <= haut:                                       #collision avec la bordure vers le haut
-			return True
+		elif self.posY1 <= haut:                                       #collision avec la bordure vers le haut
+			self.dead = True
         
-		elif self.y2 >= bas:                                       #collision avec la bordure vers le bas
-			return True
-
-		return False
+		elif self.posY2 >= bas:                                       #collision avec la bordure vers le bas
+			self.dead = True
 
 class CarreBleu:
 	def __init__(self,parent,x1,y1,x2,y2, angle):
