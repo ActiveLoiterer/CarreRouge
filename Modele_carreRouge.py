@@ -4,8 +4,8 @@ import math
 import threading
 
 class Jeu:
-	def __init__(self,nomJoueur="default"):
-		self.nomJoueur = nomJoueur
+	def __init__(self):
+		self.nomJoueur = "Anonymous"
 		#self.limiteX = self.parent.vue.canvasWidth		#Mettre ceci dans la vue.
 		#self.limiteY = self.parent.vue.canvasHeight
 
@@ -39,6 +39,9 @@ class Jeu:
 		self.tempsDepart = None # pour le temps ou commence la partie
 		self.tempsFinal = None #total du temps du joueur
 		self.var = 0
+
+	def setNom(self,nom):
+		self.nomJoueur = nom;
 
 	def startTimer(self):
 		self.tempsDepart = time.time()
@@ -79,7 +82,7 @@ class Jeu:
 			i.vitesse += 0.1
 			self.var += 1
 			print(self.var)
-		threading.Timer(5,self.incremVitesse).start()
+		#threading.Timer(5,self.incremVitesse).start()
 
 	def checkRedSqCollision(self):
 		for i in self.listeCarreBleu:

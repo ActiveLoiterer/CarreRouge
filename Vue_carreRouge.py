@@ -8,8 +8,8 @@ class Vue:
 		self.root = Tk()
 		self.root.title('CarreRouge')
 		self.controlleur = controlleur
-		self.canvasWidth = self.parent.jeu.limiteX
-		self.canvasHeight = self.parent.jeu.limiteY
+		self.canvasWidth = self.parent.limiteX
+		self.canvasHeight = self.parent.limiteY
 		self.canvasPrincipal = Canvas(self.root,width=self.canvasWidth,height=self.canvasHeight,bg="black")
 		self.drawMainMenu()
 		self.listeNom = []
@@ -56,10 +56,11 @@ class Vue:
 		self.textEntry.focus_set()
 
 	def boutonGetJoueur(self):
-		self.nomJoueur = self.textEntry.get()
-		#self.pret = 1
-		#self.controlleur.gameLoop()
 		self.drawSurfaceJeu()
+		self.controlleur.refairePartie()
+		self.controlleur.jeu.setNom(self.textEntry.get())
+		#self.nomJoueur = self.textEntry.get()
+		self.drawPions()
 
 
 	def drawListeNomHighscore(self):
@@ -98,7 +99,7 @@ class Vue:
 	def drawSurfaceJeu(self):
 		self.canvasPrincipal.delete('all')
 		self.canvasPrincipal.create_rectangle(30,30,self.canvasWidth-30,self.canvasHeight-30,fill="white",tags='jeu')
-		self.drawPions()
+		#self.drawPions()
 
 	def drawTemps(self):
 		temps = StringVar()
@@ -115,6 +116,11 @@ class Vue:
 
 		for i in self.controlleur.jeu.listeCarreBleu:
 			self.canvasPrincipal.create_rectangle(i.posX1,i.posY1,i.posX2,i.posY2,fill="blue", tags=("carreBleu"))
+	
+	def updateVue(self):
+		self.drawTemps()
+		self.drawPions()
+
 
 	def drawDialogRejouer(self):
 		if(messagebox.askyesno("nouvelle partie","voulez-vous rejouer une partie?",parent=self.canvasPrincipal)):
