@@ -57,13 +57,30 @@ class Jeu:
 		for i in self.listeCarreBleu:
 			i.vitesse += 2
 		threading.Timer(5,self.incremVitesse).start()
-#Debut de collision check, pas fini
+
 	def checkRedSqCollision(self):
 		for i in self.listeCarreBleu:
-			if self.joueur.posX1 >= i.posX1 and self.joueur.posY1 >= i.posY1 and self.joueur.posX1 <= i.posX2 and self.joueur.posY1 <= i.posY2:
-				print("true")
-				self.joueur.dead = True
-				return True
+			if self.joueur.posX2 >= i.posX1 and self.joueur.posX2 < i.posX2:
+				if self.joueur.posY1 >= i.posY1 and self.joueur.posY1 <= i.posY2:
+					print("true")
+					self.joueur.dead = True
+					return True
+				
+				if self.joueur.posY2 <= i.posY2 and self.joueur.posY2 > i.posY1:
+					print("true")
+					self.joueur.dead = True
+					return True
+
+			if self.joueur.posX1 >= i.posX1 and self.joueur.posX1 <= i.posX2:
+				if self.joueur.posY1 >= i.posY1 and self.joueur.posY1 <= i.posY2:
+					print("true")
+					self.joueur.dead = True
+					return True
+				
+				if self.joueur.posY2 <= i.posY2 and self.joueur.posY2 > i.posY1:
+					print("true")
+					self.joueur.dead = True
+					return True
 
 
 
