@@ -38,7 +38,7 @@ class Vue:
 
 	def actionBoutonQuitter(self):
 		self.canvasPrincipal.delete("all")
-		sys.exit(0)
+		os._exit()
 
 	def actionBoutonFermerHighscore(self):
 		self.canvasPrincipal.delete('highscore')
