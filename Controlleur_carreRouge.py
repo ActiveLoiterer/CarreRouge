@@ -3,30 +3,21 @@ import Modele_carreRouge
 
 class Controlleur:
 	def __init__(self):
-		self.vue = Vue_carreRouge.Vue(self)
 		self.jeu = Modele_carreRouge.Jeu(self)
-		self.gameLoop()
+		self.vue = Vue_carreRouge.Vue(self.jeu,self)
 		self.vue.root.mainloop()
 
 	def gameLoop(self):
 		if(self.vue.pret == 1):
-			self.creerJeu()
-			if(self.jeu.joueur.isDead()):
-				self.jeu.calculTempsTotal()
-				self.jeu.ecrireHighscore()
-				print(self.jeu.tempsFinal)
-				self.vue.pret = 0
-				self.vue.drawMainMenu()
-				self.jeu = Modele_carreRouge.Jeu(self)
-			else:
+			if( not self.jeu.joueur.isDead()):
 				self.jeu.calculTempsTotal()
 				self.jeu.updateCarreBleu()
 				self.jeu.checkRedSqCollision()
-				self.jeu.joueur.isOutOfBounds(30,self.jeu.limiteX - 30,30,self.jeu.limiteY - 30 )
-				self.jeu.incremVitesse()
-				self.vue.drawPions()
-				self.vue.drawTemps()
+				self.vue.updateVue()
 				self.vue.root.after(50,self.gameLoop)
+			else:
+				self.jeu.ecrireHighscore()
+				
 
 	def creerJeu(self):
 		if not self.jeu or self.jeu.nomJoueur is "default" :
