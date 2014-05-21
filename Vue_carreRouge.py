@@ -7,8 +7,8 @@ class Vue:
 		self.root = Tk()
 		self.root.title('CarreRouge')
 		self.controlleur = controlleur
-		self.canvasWidth = 700
-		self.canvasHeight = 700
+		self.canvasWidth = 500
+		self.canvasHeight = 500
 		self.canvasPrincipal = Canvas(self.root,width=self.canvasWidth,height=self.canvasHeight,bg="black")
 		self.drawMainMenu()
 		self.listeNom = []
@@ -37,17 +37,19 @@ class Vue:
 		self.getNomJoueur()
 
 	def actionBoutonQuitter(self):
-		sys.exit(0)
+		self.canvasPrincipal.delete("all")
+		os._exit()
 
 	def actionBoutonFermerHighscore(self):
 		self.canvasPrincipal.delete('highscore')
 		self.highscoreOuvert = False
+		self.drawMainMenu()
 
 	def getNomJoueur(self):
 		self.textEntry = Entry(self.canvasPrincipal)
 		b = Button(self.canvasPrincipal,text='choisir un nom',command=self.boutonGetJoueur)
-		self.canvasPrincipal.create_window(350,500,window=self.textEntry,tags='choixNom')
-		self.canvasPrincipal.create_window(350,550,window=b,tags='choixNom')
+		self.canvasPrincipal.create_window(self.canvasWidth/2,self.canvasHeight-100,window=self.textEntry,tags='choixNom')
+		self.canvasPrincipal.create_window(self.canvasWidth/2,self.canvasHeight-150,window=b,tags='choixNom')
 		self.textEntry.focus_set()
 
 	def boutonGetJoueur(self):
@@ -58,15 +60,16 @@ class Vue:
 
 
 	def drawListeNomHighscore(self):
+		self.canvasPrincipal.delete('Menu')
 		boutonFermerHS = Button(self.root,text="fermer highscore!",width=20,height=2, command= lambda: self.actionBoutonFermerHighscore())
 		scrollbar = Scrollbar(self.root)
 		listbox = Listbox(self.root,yscrollcommand=scrollbar.set)
 		for item in self.listeNom:
 			listbox.insert(END,item)
 		scrollbar.config(command=listbox.yview)
-		self.canvasPrincipal.create_window(550,300,window=listbox,tags='highscore')
-		self.canvasPrincipal.create_window(630,300,window=scrollbar,height=160,tags='highscore')
-		self.canvasPrincipal.create_window(565,420,window=boutonFermerHS,tags='highscore')
+		self.canvasPrincipal.create_window(self.canvasWidth/2,300,window=listbox,tags='highscore')
+		self.canvasPrincipal.create_window(350,300,window=scrollbar,height=160,tags='highscore')
+		self.canvasPrincipal.create_window(self.canvasWidth/2,450,window=boutonFermerHS,tags='highscore')
 
 
 	def actionBoutonHighscore(self):
@@ -84,21 +87,21 @@ class Vue:
 		self.boutonPlay = Button(self.root,text="Jouer",width=20,height=5, command= lambda: self.actionBoutonPlay())
 		self.boutonQuit = Button(self.root,text="Quitter",width=20,height=5, command= lambda: self.actionBoutonQuitter())
 		self.boutonHighscore = Button(self.root,text="Highscore",width=20,height=5, command= lambda: self.actionBoutonHighscore())
-		self.canvasPrincipal.create_window(350,200,window=self.boutonPlay,tags='Menu')
-		self.canvasPrincipal.create_window(350,400,window=self.boutonQuit,tags='Menu')
-		self.canvasPrincipal.create_window(350,300,window=self.boutonHighscore,tags='Menu')
+		self.canvasPrincipal.create_window(self.canvasWidth/2,self.canvasHeight-(self.canvasHeight-70),window=self.boutonPlay,tags='Menu')
+		self.canvasPrincipal.create_window(self.canvasWidth/2,self.canvasHeight-(self.canvasHeight-270),window=self.boutonQuit,tags='Menu')
+		self.canvasPrincipal.create_window(self.canvasWidth/2,self.canvasHeight-(self.canvasHeight-170),window=self.boutonHighscore,tags='Menu')
 		self.canvasPrincipal.pack()
 	
 	def drawSurfaceJeu(self):
 		self.canvasPrincipal.delete('all')
-		self.canvasPrincipal.create_rectangle(30,30,670,670,fill="white",tags='jeu')
+		self.canvasPrincipal.create_rectangle(30,30,self.canvasWidth-30,self.canvasHeight-30,fill="white",tags='jeu')
 		self.drawPions()
 
 	def drawTemps(self):
 		temps = StringVar()
 		temps.set(str("{:10.2f}".format(self.controlleur.jeu.getTemps())))
 		labelTemps = Label(self.canvasPrincipal,textvariable=temps,fg="black")
-		self.canvasPrincipal.create_window(350,15,window=labelTemps,tags='jeu')
+		self.canvasPrincipal.create_window(self.canvasWidth/2,15,window=labelTemps,tags='jeu')
 
 	def drawPions(self):
 		self.canvasPrincipal.delete('pion')
