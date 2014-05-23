@@ -27,6 +27,8 @@ class Vue:
 		if "pion" in lestags:
 			self.cliqueSurPion = True
 			self.pret = 1
+			if(not self.controlleur.jeu.tempsDepart):
+				self.controlleur.jeu.startTimer()
 			self.controlleur.gameLoop()
 
 	def mouseMotion(self,event):
