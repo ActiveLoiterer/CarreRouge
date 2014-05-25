@@ -6,8 +6,6 @@ import threading
 class Jeu:
 	def __init__(self):
 		self.nomJoueur = "Anonymous"
-		#self.limiteX = self.parent.vue.canvasWidth		#Mettre ceci dans la vue.
-		#self.limiteY = self.parent.vue.canvasHeight
 
 		self.limiteX = 500
 		self.limiteY = 500
@@ -15,10 +13,10 @@ class Jeu:
 		self.joueur = Pion(self,self.limiteX/2 - 20,self.limiteY/2 - 20,self.limiteX/2 + 20,self.limiteY/2 + 20)
 		self.listeCarreBleu = []
 
-		#carre 1 100,100,160,160
-		#carre 2 500,85,560,135
-		#carre 3 85,570,105,630
-		#carre 4 475,580,575,600
+		#coords carre 1 100,100,160,160
+		#coords carre 2 500,85,560,135
+		#coords carre 3 85,570,105,630
+		#coords carre 4 475,580,575,600
 
 		#Set method
 		self.carrebleu1 = CarreBleu(self,100,100,160,160,math.pi/4)
@@ -32,8 +30,7 @@ class Jeu:
 		self.listeCarreBleu.append(self.carrebleu4)
 
 		#Random method
-		for i in self.listeCarreBleu:
-			self.initCarreBleuRandom(i)
+		self.initCarreBleuRandom(self.listeCarreBleu)
 
 		self.listeNom = self.lireHighscore() #pour les highscore
 		self.tempsDepart = None # pour le temps ou commence la partie
@@ -81,7 +78,6 @@ class Jeu:
 		for i in self.listeCarreBleu:
 			i.vitesse += 0.1
 			self.var += 1
-			print(self.var)
 		#threading.Timer(5,self.incremVitesse).start()
 
 	def checkRedSqCollision(self):
@@ -102,17 +98,50 @@ class Jeu:
 
 		self.joueur.isOutOfBounds(30,self.limiteX - 30,30,self.limiteY - 30)
 
-	def initCarreBleuRandom(self, carre):
-		carre.posX1 = random.randrange(30,self.limiteX - 130)
-		carre.posY1 = random.randrange(30,self.limiteY - 130)
-		carre.posX2 = random.randrange(carre.posX1+10,carre.posX1+100)
-		carre.posY2 = random.randrange(carre.posY1+10,carre.posY1+100)
+	def initCarreBleuRandom(self, listeCarre):
+                #Area = forme 2d (carré dans notre cas) ou un carré bleu peut apparaitre
+                #Area 1 = (0,0) to (limiteX/2,limiteY/2)
+                #Area 2 = (limiteX/2,0) to (limiteX,limiteY/2)
+                #Area 3 = (0,limiteY/2) to (limiteX/2, limiteY)
+                #Area 4 = (limiteX/2,limiteY/2), (limiteX, limiteY)
+                #Il faut aussi prendre en compte la bordure et le carré du milieu
 
-		while((carre.posX1 >= self.limiteX/2 - 150 and carre.posX2 <= self.limiteX/2 + 150) or (carre.posY1 >= self.limiteY/2 - 150 and carre.posY2 <= self.limiteX/2 + 150)):
-			carre.posX1 = random.randrange(30,self.limiteX - 130)
-			carre.posY1 = random.randrange(30,self.limiteY - 130)
-			carre.posX2 = random.randrange(carre.posX1+10,carre.posX1+100)
-			carre.posY2 = random.randrange(carre.posY1+10,carre.posY1+100)
+                #Premier carré peut apparaitre dans Area 1
+                listeCarre[0].posX1 = random.randrange(30,self.limiteX/2-130)
+                listeCarre[0].posX2 = random.randrange(listeCarre[0].posX1+10,listeCarre[0].posX1+100)
+                listeCarre[0].posY1 = random.randrange(30,self.limiteY/2-130)
+                listeCarre[0].posY2 = random.randrange(listeCarre[0].posY1+10,listeCarre[0].posY1+100)
+
+
+                #Deuxième carré peut apparaitre dans Area 2
+                listeCarre[1].posX1 = random.randrange(self.limiteX/2+30,self.limiteX-110)
+                listeCarre[1].posX2 = random.randrange(listeCarre[1].posX1+10,listeCarre[1].posX1+100)
+                listeCarre[1].posY1 = random.randrange(30,self.limiteY/2-130)
+                listeCarre[1].posY2 = random.randrange(listeCarre[1].posY1+10,listeCarre[1].posY1+100)
+
+                #Troisième carré peut apparaitre dans area 3
+                listeCarre[2].posX1 = random.randrange(30,self.limiteX/2-130)
+                listeCarre[2].posX2 = random.randrange(listeCarre[2].posX1+10,listeCarre[2].posX1+100)
+                listeCarre[2].posY1 = random.randrange(self.limiteY/2+30, self.limiteY-130)
+                listeCarre[2].posY2 = random.randrange(listeCarre[2].posY1+10,listeCarre[2].posY1+100)
+
+                #Quatrième carré peut apparaitre dans Area 4
+                listeCarre[3].posX1 = random.randrange(self.limiteX/2+30,self.limiteX-130)
+                listeCarre[3].posX2 = random.randrange(listeCarre[3].posX1+10,listeCarre[3].posX1+100)
+                listeCarre[3].posY1 = random.randrange(self.limiteY/2+30, self.limiteY-130)
+                listeCarre[3].posY2 = random.randrange(listeCarre[3].posY1+10,listeCarre[3].posY1+100)
+
+                
+		#carre.posX1 = random.randrange(30,self.limiteX - 130)
+		#carre.posY1 = random.randrange(30,self.limiteY - 130)
+		#carre.posX2 = random.randrange(carre.posX1+10,carre.posX1+100)
+		#carre.posY2 = random.randrange(carre.posY1+10,carre.posY1+100)
+
+		#while((carre.posX1 >= self.limiteX/2 - 150 and carre.posX2 <= self.limiteX/2 + 150) or (carre.posY1 >= self.limiteY/2 - 150 and carre.posY2 <= self.limiteX/2 + 150)):
+			#carre.posX1 = random.randrange(30,self.limiteX - 130)
+			#carre.posY1 = random.randrange(30,self.limiteY - 130)
+			#carre.posX2 = random.randrange(carre.posX1+10,carre.posX1+100)
+			#carre.posY2 = random.randrange(carre.posY1+10,carre.posY1+100)
 
 
 class Pion:
