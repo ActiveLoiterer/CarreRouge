@@ -60,7 +60,8 @@ class Vue:
 	def boutonGetJoueur(self):
 		self.drawSurfaceJeu()
 		self.controlleur.refairePartie()
-		self.controlleur.jeu.setNom(self.textEntry.get())
+		if (self.textEntry.get() is not ""):
+			self.controlleur.jeu.setNom(self.textEntry.get())
 		self.drawPions()
 
 
@@ -78,8 +79,6 @@ class Vue:
 
 
 	def actionBoutonHighscore(self):
-
-		# a mettre dans le MODELE juste voir si fonctionne
 		if(not self.highscoreOuvert):
 			self.controlleur.jeu.lireHighscore()
 			self.listeNom = self.controlleur.jeu.getListeNom()
@@ -100,7 +99,6 @@ class Vue:
 	def drawSurfaceJeu(self):
 		self.canvasPrincipal.delete('all')
 		self.canvasPrincipal.create_rectangle(30,30,self.canvasWidth-30,self.canvasHeight-30,fill="white",tags='jeu')
-		#self.drawPions()
 
 	def drawTemps(self):
 		temps = StringVar()
@@ -112,7 +110,6 @@ class Vue:
 		self.canvasPrincipal.delete('pion')
 		self.canvasPrincipal.delete('carreBleu')
 		pion = self.controlleur.jeu.joueur
-		#self.drawTemps()
 		self.canvasPrincipal.create_rectangle(pion.posX1,pion.posY1,pion.posX2,pion.posY2,fill="red", tags=("pion"))
 
 		for i in self.controlleur.jeu.listeCarreBleu:

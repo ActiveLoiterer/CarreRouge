@@ -42,7 +42,6 @@ class Jeu:
 
 	def startTimer(self):
 		self.tempsDepart = time.time()
-		#self.incremVitesse()
 
 	def calculTempsTotal(self):
 		tempsFin = time.time()
@@ -60,11 +59,13 @@ class Jeu:
 		for line in highscoreFile:
 			listeNoms.append(line.splitlines())
 		highscoreFile.close()
-		return listeNoms
+		self.listeNom = listeNoms
+		return listeNoms # pour la premiere lecture du fichier quand on init le jeu
 
 	def ecrireHighscore(self):
 		highscoreFile = open("Highscore.txt", "a")
 		toWrite =  str("{:10.2f}".format(self.tempsFinal)+"\n")
+		#print(self.nomJoueur)
 		highscoreFile.write(self.nomJoueur + " " + toWrite )
 		highscoreFile.close()
 
@@ -83,7 +84,6 @@ class Jeu:
 		for i in self.listeCarreBleu:
 			i.vitesse += 0.1
 			self.var += 1
-		#threading.Timer(5,self.incremVitesse).start()
 
 	def checkRedSqCollision(self):
 		for i in self.listeCarreBleu:

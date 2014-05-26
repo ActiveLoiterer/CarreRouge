@@ -1,2 +1,2 @@
-francis       4.95
-Tony       8.28
+Francis       2.46
+Anonymous       5.69
