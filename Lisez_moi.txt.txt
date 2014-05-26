@@ -1,0 +1,40 @@
+*******************************************************************
+FAIT PAR FRANCIS GALLANT ET OLIVIER RACETTE
+26/05/14
+
+
+*******************************************************************
+BUT DU JEU
+
+Le but du jeu est simplement de survivre le plus longtemps possible 
+dans la surface de jeu sans se faire toucher 
+par un carre bleu ou toucher a la bordure noire.
+
+*******************************************************************
+COMMENT JOUER
+
+quand vous cliquer sur jouer, vous devez entrer
+un nom ( sinon anonymous par default ).
+losrque cela est fait, la surface de jeu apparait.
+Il suffit de cliquer sur le carre rouge pour que les
+pions se mettent en mouvement. vous devez maintenir
+le bouton de la souris pour pouvoir faire bouger
+le carre rouge.
+
+gare a vous, les carres bleu vont de plus en plus vite!
+
+*******************************************************************
+
+HIGHSCORE
+
+si vous souhaiter voir vos score, simplement appuyer sur le 
+bouton highscore dans le menu principal.
+
+*******************************************************************
+
+QUITTER
+
+pour quitter,simplement appuyer sur le bouton QUITTER dans
+le menu principal.
+
+*******************************************************************
