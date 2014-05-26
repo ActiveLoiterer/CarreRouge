@@ -74,6 +74,11 @@ class Jeu:
 			i.collisionAvecMur(0,self.limiteX,0,self.limiteY)
 		self.incremVitesse()
 
+	def updateJeu(self):
+		self.calculTempsTotal()
+		self.updateCarreBleu()
+		self.checkRedSqCollision()
+
 	def incremVitesse(self):
 		for i in self.listeCarreBleu:
 			i.vitesse += 0.1

@@ -10,19 +10,13 @@ class Controlleur:
 	def gameLoop(self):
 		if(self.vue.pret == 1):
 			if( not self.jeu.joueur.isDead()):
-				#self.jeu.startTimer()
-				self.jeu.calculTempsTotal()
-				self.jeu.updateCarreBleu()
-				self.jeu.checkRedSqCollision()
+				self.jeu.updateJeu()
 				self.vue.updateVue()
 				self.vue.root.after(50,self.gameLoop)
 			else:
 				self.vue.drawMainMenu()
 				self.jeu.ecrireHighscore()
 				self.vue.pret = 0
-				
-				
-				#self.jeu.ecrireHighscore()
 
 	def refairePartie(self):
 		self.jeu = None

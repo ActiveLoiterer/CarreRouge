@@ -61,7 +61,6 @@ class Vue:
 		self.drawSurfaceJeu()
 		self.controlleur.refairePartie()
 		self.controlleur.jeu.setNom(self.textEntry.get())
-		#self.nomJoueur = self.textEntry.get()
 		self.drawPions()
 
 
