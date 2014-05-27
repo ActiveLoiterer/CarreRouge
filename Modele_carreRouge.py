@@ -18,7 +18,7 @@ class Jeu:
 		#coords carre 3 85,570,105,630
 		#coords carre 4 475,580,575,600
 
-		#Set method
+		#Set method note: Il faut garder les quatre prochaines lignes sinon les objets carres ne sont pas crees
 		self.carrebleu1 = CarreBleu(self,100,100,160,160,math.pi/4)
 		self.carrebleu2 = CarreBleu(self,300,85,360,135,math.pi/4*3)
 		self.carrebleu3 = CarreBleu(self,85,350,115,410,math.pi/4*7)
@@ -87,18 +87,20 @@ class Jeu:
 
 	def checkRedSqCollision(self):
 		for i in self.listeCarreBleu:
-			if self.joueur.posX2 >= i.posX1 and self.joueur.posX2 < i.posX2:
-				if self.joueur.posY1 >= i.posY1 and self.joueur.posY1 <= i.posY2:
-					self.joueur.dead = True
-				
-				if self.joueur.posY2 <= i.posY2 and self.joueur.posY2 > i.posY1:
-					self.joueur.dead = True
-
+                        #Check sur l'axe des x en permier, pour le premier point du carre
 			if self.joueur.posX1 >= i.posX1 and self.joueur.posX1 <= i.posX2:
+                                #Ensuite l'axe des y
 				if self.joueur.posY1 >= i.posY1 and self.joueur.posY1 <= i.posY2:
 					self.joueur.dead = True
 				
-				if self.joueur.posY2 <= i.posY2 and self.joueur.posY2 > i.posY1:
+				if self.joueur.posY2 <= i.posY2 and self.joueur.posY2 >= i.posY1:
+					self.joueur.dead = True
+                        #Ensuite check l'axe des x pour le deuxieme point du carre
+			if self.joueur.posX2 >= i.posX1 and self.joueur.posX2 <= i.posX2:
+				if self.joueur.posY1 >= i.posY1 and self.joueur.posY1 <= i.posY2:
+					self.joueur.dead = True
+				
+				if self.joueur.posY2 <= i.posY2 and self.joueur.posY2 >= i.posY1:
 					self.joueur.dead = True
 
 		self.joueur.isOutOfBounds(30,self.limiteX - 30,30,self.limiteY - 30)
@@ -135,20 +137,7 @@ class Jeu:
                 listeCarre[3].posX2 = random.randrange(listeCarre[3].posX1+10,listeCarre[3].posX1+100)
                 listeCarre[3].posY1 = random.randrange(self.limiteY/2+30, self.limiteY-130)
                 listeCarre[3].posY2 = random.randrange(listeCarre[3].posY1+10,listeCarre[3].posY1+100)
-
                 
-		#carre.posX1 = random.randrange(30,self.limiteX - 130)
-		#carre.posY1 = random.randrange(30,self.limiteY - 130)
-		#carre.posX2 = random.randrange(carre.posX1+10,carre.posX1+100)
-		#carre.posY2 = random.randrange(carre.posY1+10,carre.posY1+100)
-
-		#while((carre.posX1 >= self.limiteX/2 - 150 and carre.posX2 <= self.limiteX/2 + 150) or (carre.posY1 >= self.limiteY/2 - 150 and carre.posY2 <= self.limiteX/2 + 150)):
-			#carre.posX1 = random.randrange(30,self.limiteX - 130)
-			#carre.posY1 = random.randrange(30,self.limiteY - 130)
-			#carre.posX2 = random.randrange(carre.posX1+10,carre.posX1+100)
-			#carre.posY2 = random.randrange(carre.posY1+10,carre.posY1+100)
-
-
 class Pion:
 	def __init__(self,parent,x1,y1,x2,y2):
 		self.posX1=x1
@@ -218,7 +207,7 @@ class CarreBleu:
 				self.angleCourant = math.pi/4 * 7
 
 		elif self.posY2 >= bas: 
-			if self.angleCourant > math.pi*1.5:					#collision avec la bordure vers le bas
+			if self.angleCourant > math.pi*1.5:		#collision avec la bordure vers le bas
 				self.angleCourant = math.pi/4 * 5
 			else:
 				self.angleCourant = math.pi/4 * 7"""
@@ -230,7 +219,7 @@ class CarreBleu:
 		elif self.posX2 >= droite: 
 			self.angleCourant = random.uniform(math.pi/2,math.pi*1.5)
 		
-		elif self.posY1 <= haut:                        	#collision avec la bordure vers le haut			
+		elif self.posY1 <= haut:		
 			self.angleCourant = random.uniform(0,math.pi)
 
 		elif self.posY2 >= bas: 
